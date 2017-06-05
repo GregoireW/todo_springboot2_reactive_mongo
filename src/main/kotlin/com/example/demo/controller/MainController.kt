@@ -15,10 +15,12 @@ data class Todo(@Id var id:Long=0, var title:String="", var completed:Boolean=fa
 
     // Needed because of jackson
     // Can also add jackson-kotlin, but need to update mapper. 1 line vs 15 ...
-    constructor():this(0);
+    @Suppress("unused")
+    constructor():this(0)
 
+    @Suppress("unused")
     val url:String
-        get()="${Config.root}/${id}";
+        get()="${Config.root}/$id"
 }
 
 
@@ -32,16 +34,16 @@ class MainController(val todoRepository: ReactiveTodoRepository) {
 
     @ExceptionHandler(EmptyException::class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    fun err404()=Mono.empty<Void>();
+    fun err404(): Mono<Void> = Mono.empty<Void>()
 
 
     @GetMapping("/")
-    fun listTodo(): Flux<Todo> = todoRepository.findAll();
+    fun listTodo(): Flux<Todo> = todoRepository.findAll()
 
     @PostMapping("/")
     fun createTodo(@RequestBody todo: Todo): Mono<Todo> {
-        todo.id= System.currentTimeMillis();
-        return todoRepository.save(todo);
+        todo.id= System.currentTimeMillis()
+        return todoRepository.save(todo)
     }
 
     @DeleteMapping("/")
@@ -49,12 +51,12 @@ class MainController(val todoRepository: ReactiveTodoRepository) {
     
 
     @GetMapping("/{id}")
-    fun getTodo(@PathVariable("id") id: Long) = todoRepository.findById(id).
+    fun getTodo(@PathVariable("id") id: Long):Mono<Todo> = todoRepository.findById(id).
             switchIfEmpty(Mono.error(EmptyException()))
 
 
     @DeleteMapping("/{id}")
-    fun remove(@PathVariable("id") id: Long)=todoRepository.deleteById(id)
+    fun remove(@PathVariable("id") id: Long):Mono<Void> = todoRepository.deleteById(id)
 
 
     @PatchMapping("/{id}")
