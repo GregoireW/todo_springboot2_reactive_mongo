@@ -1,24 +1,25 @@
 # todo_springboot2_reactive_mongo
 
-## Description
+A simple [Todo-Backend](http://www.todobackend.com/) application written in Kotlin and using Spring Boot 2 - web
+ reactive.
 
-Simple todo-backend with a spring boot 2 - web reactive - kotlin
+The application uses an embedded MongoDB for persistence.
 
-This use an embedded mongoDB as storage.
+Mapping done with annotations.
 
-Mapping done with annotation
+## Usage
 
-## usage
+#### Build
 
-#### Build: 
->mvn package
+    mvn package
 
 #### Run
-> java -jar target/kotlin_mongo-0.0.1-SNAPSHOT.jar
 
-or  
+    java -jar target/kotlin_mongo-0.0.1-SNAPSHOT.jar
 
-> java -jar target/kotlin_mongo-0.0.1-SNAPSHOT.jar XXXXX
+will deploy the application to [http://localhost:8080](http://localhost:8080), and
+
+    java -jar target/kotlin_mongo-0.0.1-SNAPSHOT.jar XXXXX
  
- XXXXX is the domain on which you deploy the application ( default http://localhost:8080 )
+will deploy it to _XXXXX_.
 
