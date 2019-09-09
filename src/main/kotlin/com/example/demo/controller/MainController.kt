@@ -68,7 +68,7 @@ class MainController(val todoRepository: ReactiveTodoRepository) {
     fun update(@PathVariable("id") id: Long, @RequestBody todo: Mono<Todo>): Mono<Todo>
             = todoRepository.findById(id).
             switchIfEmpty(Mono.error(EmptyException())).
-            and(todo).map {
+            zipWith(todo).map {
         if (!it.t2.title.isEmpty()) it.t1.title = it.t2.title
         if (it.t2.completed) it.t1.completed = true
         if (it.t2.order > -1) it.t1.order = it.t2.order
